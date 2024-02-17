@@ -10,31 +10,42 @@ namespace KonferenciaProjekt
 {
     internal class Eloadas
     {
+
+        readonly int eloadasid; //csak olvasható legyen
+
         string cim;
-        int sorDb;
-        int helyDb;
+        int sorok;  //sorDb;
+        int szekek; //helyDb;
         int[,] ertekeles;
         //itt constructor generálása//
 
 
 
         //az adattagokhoz készítsen get property-ket //
+        public int Eloadasid => eloadasid;
         public string Cim { get => cim; set => cim = value; }
-        public int SorDb { get => sorDb; set => sorDb = value; }
-        public int HelyDb { get => helyDb; set => helyDb = value; }
+        public int Sorok { get => sorok; set => sorok = value; }
+        public int Szekek { get => szekek; set => szekek = value; }
         public int[,] Ertekeles { get => ertekeles; set => ertekeles = value; }
 
 
 
         //paraméteres konstruktor létrejött, amely a paraméterek értékével inicializálja az adattagokat  //
-        public Eloadas(string cim, int sorDb, int helyDb, int[,] ertekeles)
+        public Eloadas(int eloadasid, string cim, int sorok, int szekek)
         {
-            this.cim = cim;
-            this.sorDb = sorDb;
-            this.helyDb = helyDb;
-            this.ertekeles = ertekeles;
+            this.eloadasid = eloadasid;
+            this.Cim = cim;
+            this.Sorok = sorok;     //sorDb
+            this.Szekek = szekek;   //helyDb
+            this.ertekeles = new int[sorok, szekek];
         }
 
+
+        //a helyes adatkiolvasas miatt -1el el kell csúsztatni a tömbünket
+        internal void SorSzekInformacio(int sor, int szek, int ertekeles)
+        {
+            this.ertekeles[sor -1, szek -1 ] = ertekeles;
+        }
 
     }
 }
